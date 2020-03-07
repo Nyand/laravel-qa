@@ -20,4 +20,13 @@ class Question extends Model
 	public function getCreatedDateAttribute(){
 		return $this->created_at->diffForHumans();
 	}
+	public function getStatusAttribute(){
+		if($this->answers>0){
+			if($this->best_answerd_id){
+				return "answered-accepted";
+			}
+			return "answered";
+		}
+		return "unanswered";
+	}
 }
