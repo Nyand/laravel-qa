@@ -56,6 +56,7 @@
 						
 					</div>
 				</div>
+				<hr>
 		   @endforeach
 		   <div class="justify-content-center">
 		   {{$questions->links()}}
