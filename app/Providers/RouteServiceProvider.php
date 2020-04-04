@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Route;
 use App\Question;
 
+
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -33,7 +34,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
 		Route::bind('slug', function($slug){
-			return Question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);
+			return Question::with(['answers.user','answers'=> function ($query){
+				$query->orderBy('votes_count', 'DESC');
+			}])->where('slug', $slug)->first() ?? abort(404);
+			//return Question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);
 		});
 
         parent::boot();
